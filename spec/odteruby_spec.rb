@@ -20,7 +20,7 @@ module Serenity
       content = OdtEruby.new(XmlReader.new template)
       result = content.evaluate context
 
-      squeeze(result).should == squeeze(expected)
+      expect( squeeze(result) ).to eq squeeze(expected)
     end
 
     it 'should escape single quotes properly' do

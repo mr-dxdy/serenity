@@ -18,8 +18,8 @@ module Serenity
       end
 
       client = GeneratorClient.new
-      lambda { client.generate_odt }.should_not raise_error
-      fixture('loop_output.odt').should be_a_document
+      expect { client.generate_odt }.not_to raise_error
+      expect( fixture('loop_output.odt') ).to be_a_document
     end
   end
 end

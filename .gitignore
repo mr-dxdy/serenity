@@ -4,3 +4,4 @@ TODO
 *.sw*
 
 .ruby-version
+/Gemfile.lock

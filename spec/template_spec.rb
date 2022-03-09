@@ -7,7 +7,7 @@ module Serenity
   describe Template do
 
     after(:each) do
-    #  FileUtils.rm(Dir['*.odt'])
+      FileUtils.rm(Dir['*.odt'])
     end
 
     it "should process a document with simple variable substitution" do
@@ -17,8 +17,8 @@ module Serenity
       template = Template.new(fixture('variables.odt'), 'output_variables.odt')
       template.process binding
 
-      'output_variables.odt'.should contain_in('content.xml', 'Malcolm Reynolds')
-      'output_variables.odt'.should contain_in('content.xml', 'captain')
+      expect('output_variables.odt').to contain_in('content.xml', 'Malcolm Reynolds')
+      expect('output_variables.odt').to contain_in('content.xml', 'captain')
     end
 
     it "should unroll a simple for loop" do
@@ -35,7 +35,7 @@ module Serenity
       template.process binding
 
       ['Firefly', 'transport', 'Colonial', 'battle'].each do |text|
-        'output_loop_table.odt'.should contain_in('content.xml', text)
+        expect('output_loop_table.odt').to contain_in('content.xml', text)
       end
     end
 
@@ -46,7 +46,7 @@ module Serenity
       template.process binding
 
       ['Malcolm', 'captain', 'River', 'psychic', 'Jay', 'gunslinger'].each do |text|
-        'output_advanced.odt'.should contain_in('content.xml', text)
+        expect('output_advanced.odt').to contain_in('content.xml', text)
       end
     end
 
@@ -54,7 +54,7 @@ module Serenity
       @h = {'ελληνικο' => 'κειμενο'}
       template = Template.new(fixture('greek.odt'), 'output_greek.odt')
       template.process binding
-      'output_greek.odt'.should contain_in('content.xml', 'κειμενο')
+      expect('output_greek.odt').to contain_in('content.xml', 'κειμενο')
     end
 
     it "should loop and generate table rows" do
@@ -64,7 +64,7 @@ module Serenity
       template.process binding
 
       ['Firefly', 'transport', 'Colonial', 'battle'].each do |text|
-        'output_table_rows.odt'.should contain_in('content.xml', text)
+        expect('output_table_rows.odt').to contain_in('content.xml', text)
       end
     end
 
@@ -73,7 +73,7 @@ module Serenity
 
       template = Template.new(fixture('header.odt'), 'output_header.odt')
       template.process(binding)
-      'output_header.odt'.should contain_in('styles.xml', 'captain')
+      expect('output_header.odt').to contain_in('styles.xml', 'captain')
     end
 
     it 'should parse the footer' do
@@ -81,7 +81,7 @@ module Serenity
 
       template = Template.new(fixture('footer.odt'), 'output_footer.odt')
       template.process(binding)
-      'output_footer.odt'.should contain_in('styles.xml', 'captain')
+      expect('output_footer.odt').to contain_in('styles.xml', 'captain')
     end
   end
 end

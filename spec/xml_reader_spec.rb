@@ -31,11 +31,10 @@ module Serenity
 
       idx = 0
       reader.each_node do |node, type|
-        expected[idx].text.should == node.strip
-        expected[idx].type.should == type
+        expect(expected[idx].text).to eq node.strip
+        expect(expected[idx].type).to eq type
         idx += 1
       end
     end
   end
 end
-

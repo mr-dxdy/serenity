@@ -5,6 +5,10 @@ module Serenity
       template.process binding
     end
 
+    def helper
+      @helper ||= Serenity::Helper.new
+    end
+
     private
 
     def output_name input

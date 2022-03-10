@@ -2,6 +2,8 @@ debug/*
 TODO
 
 *.sw*
+*.~lock.*.odt#
 
 .ruby-version
 /Gemfile.lock
+.byebug_history

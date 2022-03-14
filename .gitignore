@@ -3,6 +3,7 @@ TODO
 
 *.sw*
 *.~lock.*.odt#
+*.gem
 
 .ruby-version
 /Gemfile.lock

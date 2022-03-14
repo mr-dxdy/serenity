@@ -1,6 +1,7 @@
 require 'nokogiri'
 require 'ostruct'
 
+require 'serenity/version'
 require 'serenity/ruby_lexer'
 require 'serenity/line'
 require 'serenity/debug'

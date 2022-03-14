@@ -1,3 +1,8 @@
+2022-03-14, version 3.0.0
+  * Merge rows in table
+  * Update gems dependencies
+  * Update RSpec to 3.0
+
 2010-02-17 Tomas Kramar, version 0.1.0
   * initial release
 

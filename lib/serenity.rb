@@ -1,3 +1,7 @@
+require 'nokogiri'
+require 'ostruct'
+
+require 'serenity/ruby_lexer'
 require 'serenity/line'
 require 'serenity/debug'
 require 'serenity/node_type'
@@ -7,4 +11,5 @@ require 'serenity/images_processor'
 require 'serenity/template'
 require 'serenity/xml_reader'
 require 'serenity/helper'
+require 'serenity/syntactic_sugar'
 require 'serenity/generator'

@@ -4,24 +4,46 @@ module Serenity
 
     EMBEDDED_PATTERN = /\{%([=%]+)?(.*?)-?%\}/m
 
+    attr_reader :template
+
     def initialize template
-      @src = convert template
-      if debug?
-        File.open(debug_file_path, 'w') do |f|
-          f << @src
+      @template = template
+    end
+
+    def src
+      @src ||= begin
+        script = convert_to_ruby_script template
+
+        if debug?
+          File.open(debug_file_path, 'w') { |f| f << script }
         end
+
+        script
       end
     end
 
     def evaluate context
-      @src = @src.force_encoding Encoding.default_external
-      eval(@src, context)
+      encoding_src = src.force_encoding Encoding.default_external
+      eval(encoding_src, context)
+    end
+
+    def raw_lines
+      @sugar_lines ||= convert_to_raw_lines template
+    end
+
+    def lines
+      @lines ||= SyntacticSugar.all.translate(raw_lines)
     end
 
     private
 
-    def convert template
+    def convert_to_ruby_script(template)
       src = "_buf = '';"
+      lines.each { |line| src << line.to_buf }
+      src << "\n_buf.to_s\n"
+    end
+
+    def convert_to_raw_lines(template)
       buffer = []
       buffer_next = []
 
@@ -47,8 +69,7 @@ module Serenity
         end
       end
 
-      buffer.each { |line| src << line.to_buf }
-      src << "\n_buf.to_s\n"
+      buffer
     end
 
     def process_instruction text

@@ -10,6 +10,10 @@ module Serenity
       @text
     end
 
+    def clone
+      self.class.new(text)
+    end
+
     def self.text txt
       TextLine.new txt
     end
@@ -35,6 +39,16 @@ module Serenity
 
     def escape_text text
       text.gsub(/['\\]/, '\\\\\&')
+    end
+
+    def set_attribute(key, val)
+      tag = Nokogiri.XML(@text).children[0]
+      tag[key] = val
+
+      updated_text = tag.to_s
+      updated_text.gsub!('/','') unless @text.include?('/')
+
+      @text = updated_text
     end
   end
 
@@ -65,4 +79,3 @@ module Serenity
   end
 
 end
-

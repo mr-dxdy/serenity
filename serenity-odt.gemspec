@@ -4,7 +4,7 @@ require 'serenity/version'
 
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
-  s.name        = "serenity_odt"
+  s.name        = "odt-serenity"
   s.version     = Serenity::VERSION
   s.authors     = "kremso"
   s.email       = ""

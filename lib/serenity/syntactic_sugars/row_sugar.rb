@@ -91,9 +91,7 @@ module Serenity
     def translate_construction(lines)
       first_line, last_line = lines[0], lines[lines.length - 1]
 
-      ruby_code = [first_line, last_line].join(" ; ")
-      # TODO: symbolize hash
-      construction_options = RubyLexer::Method.parse_hash_from_arguments_or_empty ruby_code
+      construction_options = parse_construction_options first_line.text
       construction_lines = lines.slice(1, lines.length - 2)
 
       result = [first_line]
@@ -105,6 +103,17 @@ module Serenity
       result << last_line
 
       result
+    end
+
+    # TODO: May be add gem parser?
+    def parse_construction_options(text)
+      options = {}
+
+      if result = text.match(/col:\s(\d){1,}/)
+        options[:col] = result[1].to_i
+      end
+
+      options
     end
   end
 end
